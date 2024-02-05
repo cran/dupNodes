@@ -1,0 +1,4 @@
+exportPattern("^[[:alpha:]]+")
+
+importFrom(igraph,graph_from_data_frame,V,"V<-",incident)
+

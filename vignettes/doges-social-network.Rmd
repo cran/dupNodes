@@ -1,0 +1,86 @@
+---
+title: "Computing the betweenness of the doges social network using DNSL method"
+author: "JJ Merelo"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Computing the betweenness of the doges social network using DNSL method}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography: ../inst/doges.bib
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+Using data from `dogesr` [@dogesr], we will, in this vignette, *correct* the betweenness centrality of the doges social network, which was computed using the `igraph` package, and therefore does not take into account self-loops. We will use the `dupNodes` package [@dupNodes] to compute the betweenness centrality of the doges social network, which is a network with self-loops.
+
+## Set up
+
+```{r load, warning=FALSE,message=FALSE}
+library(dogesr)
+library(dupNodes)
+data("doges")
+```
+
+This loads the two involved libraries, as well as loads the data frame `data.doges` that contains data on all doges, including who they married to. Let us see how many self-loops are there
+
+```{r self.loops}
+family.marriages <- data.doges[ data.doges$Family.doge == data.doges$Family.dogaressa,]
+```
+
+So we have 7 self-loops, including 5 different families. It's not a lot, but quite enough to make a difference in the status of certain families as expressed by betweenness centrality. These are the families with self-loops:
+
+```{r self.loops.families}
+knitr::kable(table(family.marriages$Family.doge))
+```
+
+Let's compute betweenness centrality, with and without self-loops, and see the difference, after extracting only those doges that actually married
+
+```{r betweenness,message=FALSE}
+library(igraph)
+married.doges <- data.doges[ data.doges$Family.dogaressa != '',]
+original.betweenness <- betweenness(
+  graph_from_data_frame(
+    data.frame(married.doges$Family.doge, married.doges$Family.dogaressa), directed=FALSE
+    )
+  )
+dnsl.betweenness <- DNSL.betweenness(
+  married.doges, 
+  first.node="Family.doge", 
+  second.node="Family.dogaressa")
+```
+
+Which, shown sorted in a table, are:
+
+```{r betweenness.table}
+knitr::kable(head(sort(original.betweenness, decreasing=TRUE), n=10))
+knitr::kable(head(sort(dnsl.betweenness, n=10, decreasing=TRUE), n=10))
+```
+
+There is some change, due to the fact that there were very few central families, and some of the most prominent had self-loops. The Candiano family was very peripheral, and the change is not enough to make it scale the top 10; the Mocenigo and Gradenigo families have been the one that have changed the most, possibly due to the connection to these families with self-loops.
+We can see the graph with duplicated nodes here
+
+```{r graph}
+dup.graph <- dup.nodes.from.data.frame(
+  data.frame(V1=married.doges$Family.doge, V2=married.doges$Family.dogaressa)
+  )
+components <- igraph::clusters(dup.graph, mode="weak")
+biggest_cluster_id <- which.max(components$csize)
+vert_ids <- V(dup.graph)[components$membership == biggest_cluster_id]
+
+doges.sn.connected <- igraph::induced_subgraph(dup.graph, vert_ids)
+plot(doges.sn.connected,layout=layout_with_fr, vertex.label.cex=0.7)
+```
+
+## Conclusions
+
+Intra-family links have its importance in the status achieved by a family; not only supports its resilience, but also explains the position they have achieved. This is why it is important to include this new method to compute betweenness centrality, taking into account not only the existence of self-loops, but also its value. This `dupNodes` package, which is available in CRAN, can be used to correct betweenness centrality in any eligible network, as well as to represent the position in the network of these self-loops-converted-into-duplicated nodes so that it explains whatever change in the value of centrality or in ranking.
+
+## References
