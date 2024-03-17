@@ -1,9 +1,13 @@
-# R package: dupNodes [![Check and test package](https://github.com/JJ/R-dupNodes/actions/workflows/R-stuff.yml/badge.svg)](https://github.com/JJ/R-dupNodes/actions/workflows/R-stuff.yml)
+# R package: dupNodes  <!-- badges: start -->
+  [![CRAN status](https://www.r-pkg.org/badges/version/dupNodes)](https://CRAN.R-project.org/package=dupNodes)
+[![Check and test package](https://github.com/JJ/R-dupNodes/actions/workflows/R-stuff.yml/badge.svg)](https://github.com/JJ/R-dupNodes/actions/workflows/R-stuff.yml)
+  <!-- badges: end -->
 
 `dupNodes` is the companion package to paper "Intra-family links in the analysis
 of marital networks", with [reference here](inst/REFERENCES.bib).
 
-It creates duplicates of nodes that have self loops such as the one in this graph
+It creates duplicates of nodes that have self loops in undirected graphs such as
+the one here
 
 ![A with self loop](img/self-loops.png)
 
@@ -17,8 +21,9 @@ betweenness.
 
 ## Installation
 
-Install released versions from CRAN as usual, or development version
-from here
+Install [released versions from CRAN as
+usual](https://cran.r-project.org/package=dupNodes), or
+development version from here
 
 ```R
 library(devtools)
@@ -47,8 +52,10 @@ There are some examples explained in *vignettes*. Use `vignette("dupNodes")` to
 access all of chem, or individually:
 
 * `vignette("doges-social-network")` to apply functions here to data from the
-  package [`dogesr`](https://github.com/JJ/dogesr).
-
+   [`dogesr`](https://cran.r-project.org/package=dogesr) package; this is [the online
+  version](https://cran.r-project.org/package=dupNodes/vignettes/doges-social-network.html)
+* `vignette("florentine-social-network")`, which uses data from the well-known
+  Florentine social network, with a (documented) self-loop added.
 
 ## License
 

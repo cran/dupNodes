@@ -1,0 +1,59 @@
+---
+title: "Computing the betweenness of the Florentine social network using DNSL method"
+author: "JJ Merelo"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Computing the betweenness of the Florentine social network using DNSL method}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography: ../inst/florentine-families.bib
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+Using data from the well known dataset of relations between Florentine families [@Wang2022,@padgett1993robust], we will, in this vignette, *correct* the betweenness centrality of the resulting social network. The new dataset, which is included in this package, adds a self-loop that connects the Medici family with itself; since it was a big family, it did  have some marriages, as reflected by the Medici family tree published in the Wikipedia. We will use the `dupNodes` package [@dupNodes] to compute the betweenness centrality of the doges social network, which is a network with self-loops.
+
+## Set up
+
+```{r load, warning=FALSE,message=FALSE}
+library(dupNodes)
+data("florentine.sn")
+```
+
+This loads this library, as well as loads the `igraph` object `florentine.sn`, containing the data we're interested in.
+
+```{r self.loops}
+library(igraph)
+print(V(florentine.sn))
+print(E(florentine.sn))
+plot(florentine.sn)
+print(E(florentine.sn)[which_loop(florentine.sn)])
+```
+
+We have a single self-loop, but in such a small network, it will prove enough to change the values of betweenness centrality. But first we have to convert this graph to another duplicating nodes, to then proceed and compute betweenness centrality.
+
+```{r betweenness,message=FALSE}
+dn.florentine.sn <- dup.nodes.from.graph(florentine.sn)
+V(florentine.sn)$DNSLbetweenness <- betweenness.with.duplicated.nodes(dn.florentine.sn)
+```
+
+Which, shown sorted in a table, are:
+
+```{r betweenness.table}
+DNSLBetweenness <- data.frame( family=V(florentine.sn)$name, betweenness=V(florentine.sn)$DNSLbetweenness)
+knitr::kable(DNSLBetweenness[order(DNSLBetweenness$betweenness, decreasing=TRUE),])
+```
+
+## Conclusions
+
+Intra-family links have its importance in the status achieved by a family; not only supports its resilience, but also explains the position they have achieved. `dupNodes` enables computation of betweenness with self-loops in a principled way, giving a more accurate picture of the status of families in its social network. This status can then be correlated successfully to wealth or position, but this is an exercise left to the reader.
+
+## References

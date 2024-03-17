@@ -1,4 +1,4 @@
 exportPattern("^[[:alpha:]]+")
 
-importFrom(igraph,graph_from_data_frame,V,"V<-",incident)
-
+importFrom(igraph,graph_from_data_frame,V,"V<-",incident,any_loop,as_edgelist,which_loop,add_vertices,add_edges,delete_edges)
+importFrom(Rdpack,reprompt)
