@@ -13,7 +13,7 @@ DNSL.betweenness(df,first.node = "V1",second.node = "V2")
 \item{second.node}{The column that indicates the other node that's linked}
 }
 \details{
-This method computes betweenness centrality of a social network included in a data frame. Use it when you want to just apply the method to a data set, without using the intermediate graph obtained by duplicating nodes.
+This method computes betweenness centrality of a social network described by a data frame. Use it when you want to just apply the DNSLbetweenness method \insertCite{mm24:intra_family_links}{dupNodes} to a data set, without using the intermediate graph obtained by duplicating nodes.
 }
 \value{A list with betweenness values indexed by node name}
 

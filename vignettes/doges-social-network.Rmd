@@ -67,16 +67,17 @@ knitr::kable(head(sort(dnsl.betweenness, n=10, decreasing=TRUE), n=10))
 There is some change, due to the fact that there were very few central families, and some of the most prominent had self-loops. The Candiano family was very peripheral, and the change is not enough to make it scale the top 10; the Mocenigo and Gradenigo families have been the one that have changed the most, possibly due to the connection to these families with self-loops.
 We can see the graph with duplicated nodes here
 
-```{r graph}
+```{r graph, fig.dim=c(8,6)}
 dup.graph <- dup.nodes.from.data.frame(
   data.frame(V1=married.doges$Family.doge, V2=married.doges$Family.dogaressa)
   )
-components <- igraph::clusters(dup.graph, mode="weak")
+components <- igraph::components(dup.graph, mode="weak")
 biggest_cluster_id <- which.max(components$csize)
 vert_ids <- V(dup.graph)[components$membership == biggest_cluster_id]
 
 doges.sn.connected <- igraph::induced_subgraph(dup.graph, vert_ids)
-plot(doges.sn.connected,layout=layout_with_fr, vertex.label.cex=0.7)
+plot(doges.sn.connected,vertex.label.cex=0.9,vertex.size=5)
+
 ```
 
 ## Conclusions

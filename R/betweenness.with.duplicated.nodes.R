@@ -5,6 +5,6 @@ library(igraph)
 
 betweenness.with.duplicated.nodes <- function( dup.graph ) {
   betweenness <- betweenness(dup.graph)
-  original.nodes <- V(dup.graph)[ !grepl("'", V(dup.graph)$name) ]
+  original.nodes <- .original_graph_nodes(dup.graph)
   return( betweenness[ original.nodes ] )
 }

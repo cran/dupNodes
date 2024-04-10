@@ -8,7 +8,7 @@ knitr::opts_chunk$set(
 library(dupNodes)
 data("florentine.sn")
 
-## ----self.loops---------------------------------------------------------------
+## ----self.loops, fig.dim=c(8,6)-----------------------------------------------
 library(igraph)
 print(V(florentine.sn))
 print(E(florentine.sn))

@@ -2,7 +2,7 @@
 \alias{dup.nodes.from.data.frame}
 \title{Creates an igraph object from a data frame with self-loops}
 \description{
-This is an implementation of the method published in the paper "Intra-family links in the analysis of marital networks", which proposed a duplication of nodes that includes self-loops to get a reflect better (and include all information about) the status of all nodes in the network.
+This is an implementation of the method published in the paper "Intra-family links in the analysis of marital networks" \insertCite{mm24:intra_family_links}{dupNodes}, which proposed a duplication of nodes that includes self-loops to get a reflect better (and include all information about) the status of all nodes in the network.
 }
 \usage{
 dup.nodes.from.data.frame(df,first.node="V1",second.node="V2")
@@ -15,7 +15,9 @@ dup.nodes.from.data.frame(df,first.node="V1",second.node="V2")
 \details{
 This method duplicates nodes with self-loops, and links the duplicated nodes with the original with a weight that is equal to the number of self-loops.
 
-This can be applied to matrimonial networks where there are marriages among members of the same family, or any other type of network with self-loops, and allows to apply centrality (and other) measures, obtaining a meaningful and more accurate result
+This can be applied to matrimonial networks where there are marriages among members of the same family, or any other type of network with self-loops, and allows to apply centrality (and other) measures, obtaining a meaningful and more accurate result.
+
+You can them compute "corrected" betweenness on the resulting object using the \code{\link{DNSL.betweenness}} function.
 }
 \value{An igraph object with all nodes with self-loops duplicated. These newly created nodes will have the same name as the original, with a "'" added.}
 

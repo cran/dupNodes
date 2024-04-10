@@ -32,14 +32,15 @@ dnsl.betweenness <- DNSL.betweenness(
 knitr::kable(head(sort(original.betweenness, decreasing=TRUE), n=10))
 knitr::kable(head(sort(dnsl.betweenness, n=10, decreasing=TRUE), n=10))
 
-## ----graph--------------------------------------------------------------------
+## ----graph, fig.dim=c(8,6)----------------------------------------------------
 dup.graph <- dup.nodes.from.data.frame(
   data.frame(V1=married.doges$Family.doge, V2=married.doges$Family.dogaressa)
   )
-components <- igraph::clusters(dup.graph, mode="weak")
+components <- igraph::components(dup.graph, mode="weak")
 biggest_cluster_id <- which.max(components$csize)
 vert_ids <- V(dup.graph)[components$membership == biggest_cluster_id]
 
 doges.sn.connected <- igraph::induced_subgraph(dup.graph, vert_ids)
-plot(doges.sn.connected,layout=layout_with_fr, vertex.label.cex=0.7)
+plot(doges.sn.connected,vertex.label.cex=0.9,vertex.size=5)
+
 

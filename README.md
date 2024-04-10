@@ -3,8 +3,12 @@
 [![Check and test package](https://github.com/JJ/R-dupNodes/actions/workflows/R-stuff.yml/badge.svg)](https://github.com/JJ/R-dupNodes/actions/workflows/R-stuff.yml)
   <!-- badges: end -->
 
-`dupNodes` is the companion package to paper "Intra-family links in the analysis
-of marital networks", with [reference here](inst/REFERENCES.bib).
+> Browse this [from the web](https://jj.github.io/R-dupNodes/) or browse the
+> [generated documentation](https://jj.github.io/R-dupNodes/docs/)
+
+`dupNodes` is the companion package to paper ["Intra-family links in the analysis
+of marital networks"](https://doi.org/10.1007/s42001-023-00245-4), with
+[reference here](inst/REFERENCES.bib).
 
 It creates duplicates of nodes that have self loops in undirected graphs such as
 the one here
@@ -40,7 +44,7 @@ Please cite this paper when using this package in your work
   title =        {Intra-family links in the analysis of marital networks},
   journal =      {Journal of computational social science},
   year =         2024,
-  url= {https://rdcu.be/dwYth},
+  url= {https://link.springer.com/epdf/10.1007/s42001-023-00245-4},
   doi= {https://doi.org/10.1007/s42001-023-00245-4},
   month =     {January}
 }
@@ -55,7 +59,7 @@ access all of chem, or individually:
    [`dogesr`](https://cran.r-project.org/package=dogesr) package; this is [the online
   version](https://cran.r-project.org/package=dupNodes/vignettes/doges-social-network.html)
 * `vignette("florentine-social-network")`, which uses data from the well-known
-  Florentine social network, with a (documented) self-loop added.
+  Florentine social network, with a (documented) self-loop added; browse it [in CRAN](https://cran.r-project.org/package=dupNodes/vignettes/florentine-social-network.html)
 
 ## License
 

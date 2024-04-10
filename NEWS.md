@@ -1,3 +1,12 @@
+# dupNodes 0.3.0
+
+Changes:
+* Adds `DNSLbetweenness_for_graph`
+* Refactors duplicated nodes detection to private function
+
+Fixes:
+* Documentation fixes and general improvement
+
 # dupNodes 0.2.0
 
 Changes:

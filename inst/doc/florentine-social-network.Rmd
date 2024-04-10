@@ -7,7 +7,7 @@ vignette: >
   %\VignetteIndexEntry{Computing the betweenness of the Florentine social network using DNSL method}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-bibliography: ../inst/florentine-families.bib
+bibliography: ['../inst/florentine-families.bib','../inst/doges.bib']
 ---
 
 ```{r setup, include = FALSE}
@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-Using data from the well known dataset of relations between Florentine families [@Wang2022,@padgett1993robust], we will, in this vignette, *correct* the betweenness centrality of the resulting social network. The new dataset, which is included in this package, adds a self-loop that connects the Medici family with itself; since it was a big family, it did  have some marriages, as reflected by the Medici family tree published in the Wikipedia. We will use the `dupNodes` package [@dupNodes] to compute the betweenness centrality of the doges social network, which is a network with self-loops.
+Using data from the well known dataset of relations between Florentine families [@Wang2022,@padgett1993robust], we will, in this vignette, *correct* the betweenness centrality of the resulting social network. The new dataset, which is included in this package, adds a self-loop that connects the Medici family with itself; since it was a big family, it did  have some marriages, as reflected by the Medici family tree published in the Wikipedia. We will use the `dupNodes` package [@dupNodes] to compute the betweenness centrality of the doges social network, which includes self-loops (some doges married to members of the same extended family).
 
 ## Set up
 
@@ -30,7 +30,7 @@ data("florentine.sn")
 
 This loads this library, as well as loads the `igraph` object `florentine.sn`, containing the data we're interested in.
 
-```{r self.loops}
+```{r self.loops, fig.dim=c(8,6)}
 library(igraph)
 print(V(florentine.sn))
 print(E(florentine.sn))
